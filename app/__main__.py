@@ -27,4 +27,5 @@ if __name__ == "__main__":
         dummy.country_code_name,
         dummy.phone_number
     )
-    api.poll_booking(search_id)
+    reservation_id = api.poll_booking(search_id)
+    api.cancellation(reservation_id)
