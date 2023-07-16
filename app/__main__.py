@@ -2,8 +2,6 @@ from apis.mozio.api import MozioAPI
 from utils.dummy import Dummy
 
 if __name__ == "__main__":
-    MAX_POLLING_TIME = 10
-    POLLING_TIME = 2
     dummy = Dummy()
     api = MozioAPI()
 

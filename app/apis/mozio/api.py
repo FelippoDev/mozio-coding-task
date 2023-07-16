@@ -96,7 +96,7 @@ class MozioAPI:
             "flight_number": "33",
             "customer_special_instructions": ""
         }
-
+        
         response = requests.post(url, json=body, headers=self.HEADERS)
         return response.json()
 
@@ -121,7 +121,7 @@ class MozioAPI:
                 break
 
             time.sleep(self.POLLING_TIME)
-
+        
         return response.json()['reservations'][0]['id']
 
     def cancellation(self, reservation_id: str) -> dict:
@@ -136,5 +136,5 @@ class MozioAPI:
         """
         url = self.BASE_URL + f"v2/reservations/{reservation_id}/"
         response = requests.delete(url, headers=self.HEADERS)
-
+        
         return response.json()
