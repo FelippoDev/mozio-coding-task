@@ -1,16 +1,30 @@
 from apis.mozio.api import MozioAPI
+from utils.dummy import Dummy
 
 if __name__ == "__main__":
+    MAX_POLLING_TIME = 10
+    POLLING_TIME = 2
+    dummy = Dummy()
     api = MozioAPI()
 
     search_id = api.search(
-        start_address="44 Tehama Street, San Francisco, CA, USA",
-        end_address="SFO",
-        mode="one_way",
-        pickup_datetime="2023-12-01 15:30",
-        num_passengers=2,
-        currency="USD",
-        campaign="Luiz Felippo dos Santos Coelho",
+        start_address=dummy.start_address,
+        end_address=dummy.end_address,
+        mode=dummy.mode,
+        pickup_datetime=dummy.pickup_datetime,
+        num_passengers=dummy.num_passengers,
+        currency=dummy.currency,
+        campaign=dummy.campaign,
     )
-    data = api.polling(search_id)
-    
+    result = api.poll_search(search_id)
+    provider_id = dummy.select_transportation(result)
+    api.booking(
+        search_id,
+        provider_id,
+        dummy.email,
+        dummy.first_name,
+        dummy.last_name,
+        dummy.country_code_name,
+        dummy.phone_number
+    )
+    api.poll_booking(search_id)
